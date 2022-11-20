@@ -13,19 +13,23 @@ import kotlinx.coroutines.*
 
 class EntranceTestRepositoryImpl : EntranceTestRepository {
 
+  /**
+   * signUp is an asynchronous method when querying the server to register a new user.
+   */
   override fun signUp(user: User): LiveData<UserResponse?> {
     val data = MutableLiveData<UserResponse>()
-
     val entranceTestApi =RetrofitClient.getInstance().create(EntranceTestApi::class.java)
 
     CoroutineScope(Dispatchers.IO).launch {
       val result = entranceTestApi.signUp(user)
       data.postValue(result.body())
-      //Log.d("UserTesst", "Response SignUp: ${result.body()}")
     }
     return data
   }
 
+  /**
+   * get List Categories is an asynchronous method when querying the server to get a list of categories.
+   */
   override fun getListCategories(token: String): LiveData<List<Category>?> {
     val data = MutableLiveData<List<Category>>()
     val pageSize = 100
@@ -35,8 +39,6 @@ class EntranceTestRepositoryImpl : EntranceTestRepository {
     CoroutineScope(Dispatchers.IO).launch {
       val result = entranceTestApi.getCategories(token, pageSize, pageNumber)
       data.postValue(result.body()?.categories)
-
-      //Log.d("UserTesst", "Response searchMovies: ${result.body()?.categories}")
     }
     return data
   }

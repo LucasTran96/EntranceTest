@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:background="@android:color/transparent"
     android:layout_height="wrap_content"
-    android:paddingVertical="45dp"
+    android:paddingVertical="35dp"
     android:paddingHorizontal="10dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"

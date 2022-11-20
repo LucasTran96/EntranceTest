@@ -20,19 +20,22 @@ class SignUpViewModel(private val repository: EntranceTestRepository = EntranceT
   var password = ObservableField<String>("")
   var isChecked = ObservableField<Boolean>(false)
 
-
+  // saveLiveData is MutableLiveData as Boolean type it will notify every time there is a change in value.
   private val saveLiveData = MutableLiveData<Boolean>()
 
+  // getSaveLiveData is a fun event that fires an event on which view Observer it when the saveLiveData data is changed.
   fun getSaveLiveData(): LiveData<Boolean> = saveLiveData
 
   fun signUp(user: User): LiveData<UserResponse?> {
     return repository.signUp(user)
   }
 
-  fun saveMovie() {
+  /**
+   * createNewUser is method bound directly from xml file.
+   * It supports handling new user registration.
+   */
+  fun createNewUser() {
     if (isChecked.get() == true) {
-      val user = User(email.get().toString(), "Huy", "Quoc Tran", password.get().toString())
-      repository.signUp(user)
       saveLiveData.postValue(true)
     } else {
       saveLiveData.postValue(false)

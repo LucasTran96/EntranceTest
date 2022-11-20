@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.huytran.entrancetest.R
 import com.huytran.entrancetest.action
 import com.huytran.entrancetest.data.db.SessionManager
+import com.huytran.entrancetest.data.model.Category
 import com.huytran.entrancetest.snack
 import com.huytran.entrancetest.view.adapters.CategoryListAdapter
 import com.huytran.entrancetest.viewmodel.CategoryViewModel
@@ -22,20 +23,15 @@ import kotlinx.android.synthetic.main.activity_category.*
 
 class CategoryActivity : AppCompatActivity() {
 
-  private var adapter = CategoryListAdapter(mutableListOf())
+  private var adapter = CategoryListAdapter(mutableListOf()){ showOrHideButtonDone() }
 
   private lateinit var viewModel: CategoryViewModel
-
-  private lateinit var title: String
   private lateinit var sessionManager: SessionManager
-
+  private var categoryList = mutableListOf<Category>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_category)
-    intent?.extras?.getString("title")?.let {
-      title = it
-    }
     viewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
     val layoutManager = GridLayoutManager(this, 3)
     // Optionally customize the position you want to default scroll to
@@ -44,47 +40,62 @@ class CategoryActivity : AppCompatActivity() {
     categoryRecyclerView.layoutManager = layoutManager;
     categoryRecyclerView.adapter = adapter
     sessionManager = SessionManager(applicationContext)
-    searchMovie()
-
+    getCategories()
   }
 
+  // show loading
   private fun showLoading() {
     categoryProgressBar.visibility = View.VISIBLE
     categoryRecyclerView.isEnabled = false
   }
 
+  // hide loading
   private fun hideLoading() {
     categoryProgressBar.visibility = View.GONE
     categoryRecyclerView.isEnabled = true
   }
 
+  /**
+   * showMessage is a fun used to display the error returned when querying the api from the server.
+   */
   private fun showMessage() {
     categoryLayout.snack(getString(R.string.network_error), Snackbar.LENGTH_INDEFINITE) {
       action(getString(R.string.ok)) {
-        searchMovie()
+        getCategories()
       }
     }
   }
 
-  private fun searchMovie() {
-    sessionManager.fetchAuthToken()?.let {
-      getCategories()
-    }
-
-  }
-
+  /**
+   * getCategories is a fun handler that listens and updates new data from the View model.
+   */
   private fun getCategories() {
-    showLoading()
-    viewModel.getListCategories(token = "Bearer ${sessionManager.fetchAuthToken()}").observe(this, Observer { category ->
-      hideLoading()
-      if (category == null) {
-        Log.d("UserTesst", "category == null")
-        showMessage()
-      } else {
-        Log.d("UserTesst", "User = ${category.toString()}")
-        adapter.setMovies(category)
-      }
-    })
+    sessionManager.fetchAuthToken()?.let {
+      showLoading()
+      viewModel.getListCategories(token = "Bearer ${sessionManager.fetchAuthToken()}").observe(this, Observer { category ->
+        hideLoading()
+        if (category == null) {
+          Log.d("UserTesst", "category == null")
+          showMessage()
+        } else {
+          Log.d("UserTesst", "User = ${category.toString()}")
+          adapter.setMovies(category)
+          categoryList.clear()
+          categoryList.addAll(category)
+        }
+      })
+    }
+  }
 
+  /**
+   * chekc show or hide button done
+   */
+  private fun showOrHideButtonDone() {
+      val listCategoryIsSelected = categoryList.filter { it.isSelected }
+      if (listCategoryIsSelected.isNotEmpty()){
+          btnDone.visibility = View.VISIBLE
+      }else{
+        btnDone.visibility = View.INVISIBLE
+      }
   }
 }

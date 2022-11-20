@@ -160,23 +160,17 @@ class SignUpActivity : AppCompatActivity() {
     viewModel.getSaveLiveData().observe(this, Observer { saved ->
       saved?.let {
         if (saved) {
-          //showLoading()
-          val user = User(binding.textEmailField.text.toString(), "Huy", "Quoc Tran", binding.textPasswordField.text.toString())
+          val user = User(binding.textEmailField.text.toString(), getString(R.string.firstname), getString(R.string.lastname), binding.textPasswordField.text.toString())
           viewModel.signUp(user).observe(this, Observer { user ->
-            //hideLoading()
             if (user == null) {
-              Log.d("UserTesst", "user == null")
               showMessage("An unknown error has occurred!")
             } else {
               sessionManager.saveAuthToken(user.token)
-              Log.d("UserTesst", "User = ${user}")
-              Log.d("UserTesst", "Token = ${user.token}")
               sessionManager.fetchAuthToken()?.let {
                 startActivityToSignUpActivity()
               }
             }
           })
-          //finish()
         } else {
           showMessage(getString(R.string.check_policy))
         }

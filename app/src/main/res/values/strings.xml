@@ -12,6 +12,8 @@
   <string name="and">and</string>
   <string name="email">Your email</string>
   <string name="password">Your password</string>
+  <string name="firstname">Huy</string>
+  <string name="lastname">Quoc Tran</string>
   <string name="let_get_you_started">Let\'s get you started!</string>
   <string name="check_policy" translatable="false">Please check if you are over 16 years old.</string>
     <string name="please_select_categories">Please select categories what you would like to see on your feed. You can set this later on Filter.</string>

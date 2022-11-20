@@ -61,6 +61,7 @@
             android:layout_marginTop="26dp"
             android:layout_marginEnd="26dp"
             android:text="@string/done"
+            android:visibility="invisible"
             android:id="@+id/btnDone"
             android:textColor="@color/white"
             android:textSize="18sp"

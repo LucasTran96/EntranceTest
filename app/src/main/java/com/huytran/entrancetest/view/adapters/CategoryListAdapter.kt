@@ -13,7 +13,8 @@ import com.huytran.entrancetest.R
 import com.huytran.entrancetest.data.model.Category
 import kotlinx.android.synthetic.main.item_category.view.*
 
-class CategoryListAdapter(private val category: MutableList<Category>) : RecyclerView.Adapter<CategoryListAdapter.CategoryHolder>() {
+class CategoryListAdapter(private val category: MutableList<Category>,
+                          private var listener: () -> Unit) : RecyclerView.Adapter<CategoryListAdapter.CategoryHolder>() {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
     val view = LayoutInflater.from(parent.context)
         .inflate(R.layout.item_category, parent, false)
@@ -39,6 +40,8 @@ class CategoryListAdapter(private val category: MutableList<Category>) : Recycle
       view.setOnClickListener {
         category.isSelected = !category.isSelected
         notifyItemChanged(position)
+        // listener is used to notify the view of a change.
+        listener()
         }
       if (category.isSelected){
         cvMovie.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color_selected))
