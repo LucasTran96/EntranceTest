@@ -31,11 +31,16 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-  testImplementation 'junit:junit:4.12'
+  implementation 'junit:junit:4.13.2'
+  testImplementation 'junit:junit:4.13.2'
 
-  testImplementation 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0'
-  androidTestImplementation 'androidx.test:runner:1.1.1'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+  //testImplementation
+  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+  testImplementation 'org.mockito:mockito-inline:4.4.0'
+  androidTestImplementation 'androidx.test:runner:1.5.1'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+  testImplementation "androidx.arch.core:core-testing:2.1.0"
+  androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
   def supportLibraryVersion = '28.0.0'
   implementation 'androidx.exifinterface:exifinterface:1.0.0'
