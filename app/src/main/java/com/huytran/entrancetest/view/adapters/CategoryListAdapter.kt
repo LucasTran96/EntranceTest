@@ -44,9 +44,9 @@ class CategoryListAdapter(private val category: MutableList<Category>,
         listener()
         }
       if (category.isSelected){
-        cvMovie.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color_selected))
+        clCategory.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.custom_background_color))
       }else{
-        cvMovie.setCardBackgroundColor(ContextCompat.getColor(context, R.color.transparent))
+        clCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent))
       }
 
     }

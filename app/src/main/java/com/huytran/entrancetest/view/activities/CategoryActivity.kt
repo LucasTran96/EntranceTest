@@ -5,6 +5,7 @@
 package com.huytran.entrancetest.view.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -41,6 +42,7 @@ class CategoryActivity : AppCompatActivity() {
     categoryRecyclerView.adapter = adapter
     sessionManager = SessionManager(applicationContext)
     getCategories()
+    registerOnBack()
   }
 
   // show loading
@@ -96,5 +98,14 @@ class CategoryActivity : AppCompatActivity() {
       }else{
         btnDone.visibility = View.INVISIBLE
       }
+  }
+
+  /**
+   * registerOnBack: back to go home
+   */
+  private fun registerOnBack() {
+    imgBackButton.setOnClickListener {
+      finish()
+    }
   }
 }
