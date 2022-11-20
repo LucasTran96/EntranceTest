@@ -10,7 +10,7 @@ import com.huytran.entrancetest.data.EntranceTestRepository
 import com.huytran.entrancetest.data.EntranceTestRepositoryImpl
 import com.huytran.entrancetest.data.model.Category
 
-class CategoryViewModel(private val repository: EntranceTestRepository = EntranceTestRepositoryImpl()): ViewModel()  {
+class CategoryViewModel(private val repository: EntranceTestRepository): ViewModel()  {
 
   /**
    * getListCategories is a fun handler that calls EntranceTestRepositoryImpl to get the Categrory List for any view that observes it.

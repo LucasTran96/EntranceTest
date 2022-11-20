@@ -18,6 +18,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.huytran.entrancetest.R
@@ -28,11 +29,12 @@ import com.huytran.entrancetest.databinding.ActivitySignupBinding
 import com.huytran.entrancetest.snack
 import com.huytran.entrancetest.viewmodel.SignUpViewModel
 import kotlinx.android.synthetic.main.activity_signup.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SignUpActivity : AppCompatActivity() {
 
   //private val toolbar: Toolbar by lazy { toolbar_toolbar_view as Toolbar }
-  private lateinit var viewModel: SignUpViewModel
+  private  val viewModel: SignUpViewModel by viewModel()
   private lateinit var binding: ActivitySignupBinding
   private lateinit var sessionManager: SessionManager
 
@@ -51,7 +53,7 @@ class SignUpActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = DataBindingUtil.setContentView<ActivitySignupBinding>(this, R.layout.activity_signup)
-    viewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
+    //viewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
 
 
     binding.viewModel = viewModel

@@ -14,7 +14,7 @@ import com.huytran.entrancetest.data.model.User
 import com.huytran.entrancetest.data.model.UserResponse
 
 
-class SignUpViewModel(private val repository: EntranceTestRepository = EntranceTestRepositoryImpl()): ViewModel() {
+class SignUpViewModel(private val repository: EntranceTestRepository): ViewModel() {
 
   var email = ObservableField<String>("")
   var password = ObservableField<String>("")

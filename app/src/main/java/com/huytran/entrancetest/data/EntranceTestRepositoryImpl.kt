@@ -11,17 +11,17 @@ import com.huytran.entrancetest.data.api.EntranceTestApi
 import com.huytran.entrancetest.data.api.RetrofitClient
 import kotlinx.coroutines.*
 
-class EntranceTestRepositoryImpl : EntranceTestRepository {
+class EntranceTestRepositoryImpl(private val apiService: EntranceTestApi) : EntranceTestRepository {
 
   /**
    * signUp is an asynchronous method when querying the server to register a new user.
    */
   override fun signUp(user: User): LiveData<UserResponse?> {
     val data = MutableLiveData<UserResponse>()
-    val entranceTestApi =RetrofitClient.getInstance().create(EntranceTestApi::class.java)
+    //val entranceTestApi =RetrofitClient.getInstance().create(EntranceTestApi::class.java)
 
     CoroutineScope(Dispatchers.IO).launch {
-      val result = entranceTestApi.signUp(user)
+      val result = apiService.signUp(user)
       data.postValue(result.body())
     }
     return data
@@ -34,10 +34,10 @@ class EntranceTestRepositoryImpl : EntranceTestRepository {
     val data = MutableLiveData<List<Category>>()
     val pageSize = 100
     val pageNumber = 0
-    val entranceTestApi =RetrofitClient.getInstance().create(EntranceTestApi::class.java)
+   // val entranceTestApi =RetrofitClient.getInstance().create(EntranceTestApi::class.java)
 
     CoroutineScope(Dispatchers.IO).launch {
-      val result = entranceTestApi.getCategories(token, pageSize, pageNumber)
+      val result = apiService.getCategories(token, pageSize, pageNumber)
       data.postValue(result.body()?.categories)
     }
     return data

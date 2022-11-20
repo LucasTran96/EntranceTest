@@ -5,11 +5,9 @@
 package com.huytran.entrancetest.view.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.huytran.entrancetest.R
@@ -20,19 +18,21 @@ import com.huytran.entrancetest.snack
 import com.huytran.entrancetest.view.adapters.CategoryListAdapter
 import com.huytran.entrancetest.viewmodel.CategoryViewModel
 import kotlinx.android.synthetic.main.activity_category.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class CategoryActivity : AppCompatActivity() {
 
   private var adapter = CategoryListAdapter(mutableListOf()){ showOrHideButtonDone() }
 
-  private lateinit var viewModel: CategoryViewModel
+  //private lateinit var viewModel: CategoryViewModel
+  private val viewModel: CategoryViewModel by viewModel()
   private lateinit var sessionManager: SessionManager
   private var categoryList = mutableListOf<Category>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_category)
-    viewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
+    //viewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
     val layoutManager = GridLayoutManager(this, 3)
     // Optionally customize the position you want to default scroll to
     layoutManager.scrollToPosition(0);
@@ -72,13 +72,12 @@ class CategoryActivity : AppCompatActivity() {
   private fun getCategories() {
     sessionManager.fetchAuthToken()?.let {
       showLoading()
-      viewModel.getListCategories(token = "Bearer ${sessionManager.fetchAuthToken()}").observe(this, Observer { category ->
+      val bearer = "Bearer"
+      viewModel.getListCategories(token = "$bearer ${sessionManager.fetchAuthToken()}").observe(this, Observer { category ->
         hideLoading()
         if (category == null) {
-          Log.d("UserTesst", "category == null")
           showMessage()
         } else {
-          Log.d("UserTesst", "User = ${category.toString()}")
           adapter.setMovies(category)
           categoryList.clear()
           categoryList.addAll(category)
