@@ -1,0 +1,20 @@
+<resources>
+  <string name="app_name">Entrance Test</string>
+  <string name="network_error">Network Error. Try Again?</string>
+  <string name="ok">Ok</string>
+  <string name="error">Error</string>
+  <string name="title_message">You must enter a title</string>
+  <string name="enter_title">You must enter a title</string>
+  <string name="sign_up">Sign Up</string>
+  <string name="terms_of_service_and_privacy_policy">By clicking Sign Up, you are indicating that you have read and agree to the </string>
+  <string name="terms_of_service">Terms of Service</string>
+  <string name="privacy_policy">Privacy Policy</string>
+  <string name="and">and</string>
+  <string name="email">Your email</string>
+  <string name="password">Your password</string>
+  <string name="let_get_you_started">Let\'s get you started!</string>
+  <string name="check_policy" translatable="false">Please check if you are over 16 years old.</string>
+    <string name="please_select_categories">Please select categories what you would like to see on your feed. You can set this later on Filter.</string>
+    <string name="welcome_to_flutter_test">Welcome to Flutter Test</string>
+    <string name="done">Done</string>
+</resources>

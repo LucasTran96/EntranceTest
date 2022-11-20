@@ -1,0 +1,34 @@
+<resources>
+
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="android:windowFullscreen">true</item>
+    <item name="colorPrimary">@color/color_647FFF</item>
+    <item name="colorPrimaryDark">@color/color_647FFF</item>
+    <item name="colorAccent">@color/color_647FFF</item>
+  </style>
+
+  <style name="MyCardViewStyle" parent="Theme.AppCompat.Light">
+    <item name="cardCornerRadius">8dp</item>
+    <item name="cardElevation">1dp</item>
+    <item name="borderWidth">1dp</item>
+    <item name="cardBackgroundColor">@android:color/transparent</item>
+  </style>
+
+  <style name="TopBarStyle" parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
+    <item name="android:textColorPrimary">@color/backgroundLight</item>
+  </style>
+
+
+  <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+    <item name="colorControlNormal">@color/color_647FFF</item>
+  </style>
+
+  <style name="TextInputLayoutAppearance1" parent="Widget.Design.TextInputLayout">
+    <item name="colorControlNormal">@color/color_E3A063</item>
+  </style>
+
+
+
+</resources>
