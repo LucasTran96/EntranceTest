@@ -20,10 +20,12 @@ class EntranceTestRepositoryImpl(private val apiService: EntranceTestApi) : Entr
     val data = MutableLiveData<UserResponse>()
     //val entranceTestApi =RetrofitClient.getInstance().create(EntranceTestApi::class.java)
 
+   //var job =  CoroutineScope(Dispatchers.IO).launch {
     CoroutineScope(Dispatchers.IO).launch {
       val result = apiService.signUp(user)
       data.postValue(result.body())
     }
+    //job.cancel()
     return data
   }
 
