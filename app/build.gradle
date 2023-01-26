@@ -1,9 +1,6 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -16,15 +13,18 @@ android {
     versionName "1.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
+
+  dataBinding {
+    enabled = true
+  }
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
-  dataBinding {
-    enabled = true
-  }
+
 }
 
 dependencies {
@@ -95,4 +95,9 @@ dependencies {
   implementation "org.koin:koin-android-scope:$koin_version"
   implementation "org.koin:koin-android-viewmodel:$koin_version"
   implementation "org.koin:koin-android-ext:$koin_version"
+
+  implementation 'dev.ahamed.mva2:adapter:2.0.0'
+  implementation 'dev.ahamed.mva2:ext-databinding:2.0.0'  // DataBinding
+  implementation 'dev.ahamed.mva2:ext-decorator:2.0.0'    // Decorators
+  implementation 'dev.ahamed.mva2:ext-diffutil-rx:2.0.0'  // RxDiffUtil
 }

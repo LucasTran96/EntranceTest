@@ -23,6 +23,9 @@
     <activity android:name="com.huytran.entrancetest.view.activities.CategoryActivity"
         android:screenOrientation="portrait"/>
 
+    <activity android:name="com.huytran.entrancetest.view.activities.TabActivity"
+        android:screenOrientation="portrait"/>
+
       <meta-data
           android:name="preloaded_fonts"
           android:resource="@array/preloaded_fonts" />

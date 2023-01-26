@@ -124,7 +124,7 @@
           android:textColorHint="@android:color/darker_gray"
           app:layout_constraintBottom_toTopOf="@+id/cbAgree16YearsOld"
           android:hint="@string/password"
-          android:theme="@style/TextInputLayoutAppearance"
+
           app:hintTextColor="@android:color/darker_gray"
           app:endIconMode="password_toggle"
           app:passwordToggleEnabled="true"
@@ -158,7 +158,6 @@
           android:layout_marginHorizontal="24dp"
           app:layout_constraintBottom_toTopOf="@+id/textPasswordFieldContains"
           android:hint="@string/email"
-          android:theme="@style/TextInputLayoutAppearance"
           android:textColorHint="@android:color/darker_gray"
           app:hintTextColor="@android:color/darker_gray"
           app:helperTextEnabled="true"

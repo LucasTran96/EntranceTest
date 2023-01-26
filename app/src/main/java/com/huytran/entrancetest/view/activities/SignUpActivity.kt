@@ -182,7 +182,7 @@ class SignUpActivity : AppCompatActivity() {
 
   // Start activity to SignUp activity
   private fun startActivityToSignUpActivity(){
-    val intent = Intent(applicationContext, CategoryActivity::class.java)
+    val intent = Intent(applicationContext, TabActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     startActivity(intent)
   }

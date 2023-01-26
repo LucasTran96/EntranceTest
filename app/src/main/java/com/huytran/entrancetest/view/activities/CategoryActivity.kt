@@ -34,7 +34,7 @@ class CategoryActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_category)
     //viewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
-    val layoutManager = GridLayoutManager(this, 3)
+    val layoutManager = GridLayoutManager(this, 1)
     // Optionally customize the position you want to default scroll to
     layoutManager.scrollToPosition(0);
     // Attach layout manager to the RecyclerView

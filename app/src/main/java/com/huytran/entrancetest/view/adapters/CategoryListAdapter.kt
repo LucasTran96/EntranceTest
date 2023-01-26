@@ -43,11 +43,11 @@ class CategoryListAdapter(private val category: MutableList<Category>,
         // listener is used to notify the view of a change.
         listener()
         }
-      if (category.isSelected){
-        clCategory.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.custom_background_color))
-      }else{
-        clCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent))
-      }
+//      if (category.isSelected){
+//        clCategory.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.custom_background_color))
+//      }else{
+//        clCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent))
+//      }
 
     }
   }

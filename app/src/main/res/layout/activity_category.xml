@@ -23,36 +23,6 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgPerson"
-            app:srcCompat="@drawable/img_category_person"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitStart"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/img_night_category_background"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitStart"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/imgNightBackground"
-            app:srcCompat="@drawable/img_night_category_background"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitXY"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,34 +61,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.2" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtPleaseSelectCategories"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="64dp"
-            android:paddingTop="16dp"
-            android:lineHeight="22.68dp"
-            app:layout_constraintBottom_toTopOf="@+id/glOneThird"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/please_select_categories"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:fontFamily="@font/lato"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/txtPleaseSelectCategories"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/welcome_to_flutter_test"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:fontFamily="@font/lato"
-            />
-
         <ProgressBar
             android:id="@+id/categoryProgressBar"
             style="?android:attr/progressBarStyle"
@@ -134,13 +76,14 @@
             android:id="@+id/categoryRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="100dp"
             android:paddingHorizontal="12dp"
             android:paddingBottom="50dp"
             android:background="@android:color/transparent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/glOneThird"/>
+            tools:listitem="@layout/item_category"
+            app:layout_constraintTop_toTopOf="parent"/>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
