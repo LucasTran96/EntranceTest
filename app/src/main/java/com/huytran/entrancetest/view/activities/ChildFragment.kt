@@ -17,6 +17,7 @@ import com.huytran.entrancetest.data.model.Data
 import com.huytran.entrancetest.databinding.FragmentChildBinding
 import com.huytran.entrancetest.viewmodel.ChildFragmentViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import kotlin.random.Random
 
 class ChildFragment : Fragment() {
     private val viewModel : ChildFragmentViewModel by viewModel()
@@ -49,7 +50,7 @@ class ChildFragment : Fragment() {
         binding.setVariable(BR.viewModel, viewModel)
 
         //val listItem: MutableList<Category> = mutableListOf()
-        Log.d("categoryzz", "category size View= ${listItem.size}")
+        Log.d("ChildFragmentViewModel", "category size View= ${listItem.size}")
         if (text == "2"){
 
             //listItem.add(Category("5","6 Fragment", false))
@@ -78,6 +79,14 @@ class ChildFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("ChildFragmentViewModel", "onResume")
+        sessionManager.let {
+            getCategories()
+        }
+    }
+
     /**
      * getCategories is a fun handler that listens and updates new data from the View model.
      */
@@ -104,7 +113,7 @@ class ChildFragment : Fragment() {
                                 }
 
                                 var urlImage = "https://placekitten.com/200/200"
-                                listItem.add(Data(51,urlImage, "sssd1", "5", null, isFavorite = true))
+                                listItem.add(Data(51,urlImage, "${Random.nextInt(20)}", "5", null, isFavorite = true))
                                 listItem.add(Data(52,urlImage, "sssd2", "5", null, isFavorite = true))
                                 listItem.add(Data(53,urlImage, "sssd3", "5", null, isFavorite = true))
 
@@ -125,9 +134,8 @@ class ChildFragment : Fragment() {
                         }
                     })
             }
-
-
         }
+
     }
 
     /**

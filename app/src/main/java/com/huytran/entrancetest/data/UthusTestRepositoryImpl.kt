@@ -7,10 +7,10 @@ package com.huytran.entrancetest.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.huytran.entrancetest.data.model.*
-import com.huytran.entrancetest.data.api.EntranceTestApi
+import com.huytran.entrancetest.data.api.UthusTestApi
 import kotlinx.coroutines.*
 
-class EntranceTestRepositoryImpl(private val apiService: EntranceTestApi) : EntranceTestRepository {
+class UthusTestRepositoryImpl(private val apiService: UthusTestApi) : UthusTestRepository {
 
   /**
    * get List Categories is an asynchronous method when querying the server to get a list of categories.

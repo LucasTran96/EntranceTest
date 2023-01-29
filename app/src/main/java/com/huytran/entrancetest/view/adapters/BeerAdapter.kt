@@ -54,14 +54,7 @@ class BeerAdapter(
                          Log.d("ChildFragmentViewModel", "beforeTextChanged=$p0")
                      }
                  })
-
              }
-
-
-
-
-
-
         }
     }
 
@@ -74,7 +67,7 @@ class BeerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HobbiesViewHolder {
 //        val view = ItemCategoryBinding.inflate(LayoutInflater.from(context) , parent,false)
 //        return HobbiesViewHolder(view)
-
+        Log.d("ChildFragmentViewModel", "onCreateViewHolder")
         return LayoutInflater.from(parent.context).let {
             val id = layouts[viewType]!!
             val bind = DataBindingUtil.inflate<ItemCategoryBinding>(it, id, parent, false)
@@ -88,7 +81,7 @@ class BeerAdapter(
     //        holder.bind.executePendingBindings()
     //    }
     override fun onBindViewHolder(holder: HobbiesViewHolder, position: Int) {
-
+        Log.d("ChildFragmentViewModel", "onBindViewHolder")
         holder.viewBinding.setVariable(BR.model, getItemByPosition(position))
         listener?.let { holder.viewBinding.setVariable(BR.listener, it) }
         holder.viewBinding.executePendingBindings()

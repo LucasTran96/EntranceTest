@@ -5,17 +5,16 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.huytran.entrancetest.R
-import com.huytran.entrancetest.data.EntranceTestRepository
+import com.huytran.entrancetest.data.UthusTestRepository
 import com.huytran.entrancetest.data.model.Data
 import com.huytran.entrancetest.view.adapters.BeerAdapter
 import com.squareup.picasso.Picasso
 
-class ChildFragmentViewModel(private val repository: EntranceTestRepository): ViewModel()   {
+class ChildFragmentViewModel(private val repository: UthusTestRepository): ViewModel()   {
 
 
     // saveLiveData is MutableLiveData as Boolean type it will notify every time there is a change in value.

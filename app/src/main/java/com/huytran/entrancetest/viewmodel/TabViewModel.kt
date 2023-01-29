@@ -1,5 +1,6 @@
 package com.huytran.entrancetest.viewmodel
 
+import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.viewpager.widget.ViewPager
@@ -26,6 +27,7 @@ class TabViewModel(contract: MainActivityContract) : ViewModel() {
     var pageChangeListener = object : ViewPager.OnPageChangeListener {
 
         override fun onPageScrollStateChanged(p0: Int) {
+
         }
 
         override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
@@ -33,6 +35,11 @@ class TabViewModel(contract: MainActivityContract) : ViewModel() {
 
         override fun onPageSelected(p0: Int) {
             currentPosition = p0
+            adapter.getItem(p0).onResume()
+            adapter.notifyDataSetChanged()
+            Log.d("ChildFragmentViewModel", "onPageSelected currentPosition = $p0")
+
+
         }
     }
 

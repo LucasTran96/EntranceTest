@@ -1,11 +1,11 @@
 package com.huytran.entrancetest.data.module
 
-import com.huytran.entrancetest.data.EntranceTestRepository
-import com.huytran.entrancetest.data.EntranceTestRepositoryImpl
+import com.huytran.entrancetest.data.UthusTestRepository
+import com.huytran.entrancetest.data.UthusTestRepositoryImpl
 import org.koin.dsl.module
 
 var repositoryModule = module{
     single {
-        EntranceTestRepositoryImpl(get()) as EntranceTestRepository
+        UthusTestRepositoryImpl(get()) as UthusTestRepository
     }
 }

@@ -1,12 +1,12 @@
 package com.huytran.entrancetest.data.module
 
-import com.huytran.entrancetest.data.api.EntranceTestApi
+import com.huytran.entrancetest.data.api.UthusTestApi
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
 var apiModule = module {
-    fun provideApi(retrofit: Retrofit): EntranceTestApi {
-        return retrofit.create(EntranceTestApi::class.java)
+    fun provideApi(retrofit: Retrofit): UthusTestApi {
+        return retrofit.create(UthusTestApi::class.java)
     }
 
     single { provideApi(get()) }

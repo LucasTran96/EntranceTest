@@ -7,7 +7,7 @@ package com.huytran.entrancetest.data
 import androidx.lifecycle.LiveData
 import com.huytran.entrancetest.data.model.*
 
-interface EntranceTestRepository {
+interface UthusTestRepository {
 
 
   // get all list categories
