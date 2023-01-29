@@ -32,8 +32,9 @@ var retrofitModule = module {
      */
 
     fun provideRetrofit(factory: Gson, client: OkHttpClient): Retrofit {
+        //https://apps.uthus.vn/api/api-testing/sample-data?page=1&limit=20
         return Retrofit.Builder()
-            .baseUrl("http://streaming.nexlesoft.com:4000/api/")
+            .baseUrl("https://apps.uthus.vn/api/")
             .addConverterFactory(GsonConverterFactory.create(factory))
             .client(client)
             .build()

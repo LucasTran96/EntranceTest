@@ -7,7 +7,8 @@
   <color name="backgroundLight">#F5F5F6</color>
   <color name="backgroundMedium">#E1E2E1</color>
   <color name="lightblue">#ADD8E6</color>
-  <color name="white">#ffffffff</color>
+  <color name="white">#ffffff</color>
+  <color name="black">#000000</color>
   <color name="color_647FFF">#647FFF</color>
   <color name="color_E05151">#E05151</color>
   <color name="color_FFFFFF50">#80FFFFFF</color>

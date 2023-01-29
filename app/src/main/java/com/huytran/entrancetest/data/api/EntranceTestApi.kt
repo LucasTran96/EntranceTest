@@ -11,13 +11,9 @@ import retrofit2.http.*
 interface EntranceTestApi {
 
 
+  //?page=1&limit=20
   @Headers("Content-Type: application/json")
-  @POST("auth/signup")
-  suspend fun signUp(@Body user: User) : Response<UserResponse>
-
-  //categories?pageSize=$100&pageNumber=0"
-  @Headers("Content-Type: application/json")
-  @GET("categories")
-  suspend fun getCategories(@Header("Authorization") authorization : String,@Query("pageSize") pageSize: Int, @Query("pageNumber") pageNumber: Int): Response<CategoryResponse>
+  @GET("api-testing/sample-data")
+  suspend fun getCategories(@Query("page") page: Int, @Query("limit") limit: Int): Response<BeerResponse>
 
 }

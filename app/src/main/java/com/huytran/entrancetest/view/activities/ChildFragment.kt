@@ -10,23 +10,20 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import com.google.android.material.snackbar.Snackbar
 import com.huytran.entrancetest.BR
 import com.huytran.entrancetest.R
-import com.huytran.entrancetest.action
 import com.huytran.entrancetest.data.db.SessionManager
-import com.huytran.entrancetest.data.model.Category
+import com.huytran.entrancetest.data.model.Data
 import com.huytran.entrancetest.databinding.FragmentChildBinding
-import com.huytran.entrancetest.snack
 import com.huytran.entrancetest.viewmodel.ChildFragmentViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ChildFragment : Fragment() {
     private val viewModel : ChildFragmentViewModel by viewModel()
     private var text = ""
+    private val TAG = "ChildFragment"
     private lateinit var sessionManager: SessionManager
-    private val listItem: MutableList<Category> = mutableListOf()
+    private val listItem: MutableList<Data> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,6 +31,15 @@ class ChildFragment : Fragment() {
         }
         sessionManager = activity?.let { SessionManager(it) }!!
         getCategories()
+        configureLiveDataObservers()
+    }
+
+    private fun configureLiveDataObservers() {
+        viewModel.getButtonSaveLiveData().observe(this, Observer {
+            isSave -> isSave?.let {
+            Toast.makeText(activity, "${it.name}", Toast.LENGTH_LONG).show()
+        }
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,10 +62,12 @@ class ChildFragment : Fragment() {
         }else{
             //getCategories()
             listItem.clear()
-            listItem.add(Category("5","6 Fragment", false))
-            listItem.add(Category("7","6 Fragment", false))
-            listItem.add(Category("8","6 Fragment", false))
-            listItem.add(Category("9","6 Fragment", false))
+            var urlImage = "https://placekitten.com/200/200"
+            listItem.add(Data(5,urlImage, "sssd1", "5", null))
+            listItem.add(Data(5,urlImage, "sssd2", "5", null))
+            listItem.add(Data(5,urlImage, "sssd3", "5", null))
+            listItem.add(Data(5,urlImage, "sssd4", "5", null))
+
 //            listItem.add(ModelItem("9 Fragment", "9 Fragment\nBtnClick"))
 //            listItem.add(ModelItem("10 Fragment", "10 Fragments\nBtnClick"))
         }
@@ -79,30 +87,39 @@ class ChildFragment : Fragment() {
             showLoading()
             val bearer = "Bearer"
             activity?.let {
-                viewModel.getListCategories(token = "$bearer ${sessionManager.fetchAuthToken()}").observe(
-                    it, Observer { category ->
-                        //        activity?.let {
-                        //            viewModel.getListCategories(token = "$bearer ${sessionManager.fetchAuthToken()}").observe(
-
+                viewModel.getListCategories(token = "$bearer ${sessionManager.fetchAuthToken()}").observe(it,
+                    Observer { categorys ->
                         hideLoading()
-                        if (category == null) {
+                        if (categorys == null) {
                             showMessage()
                         } else {
-
-
                             if (text == "2"){
-
                                 listItem.clear()
-                                listItem.add(Category("5","6 Fragment", false))
-                                listItem.add(Category("7","7 Fragment", false))
-                                listItem.add(Category("8","8 Fragment", false))
-                                listItem.add(Category("9","9 Fragment", false))
+                                Log.d(TAG, "text == \"2\"")
+                                categorys.forEach { category ->
+                                    if (category.isFavorite){
+                                        Log.d(TAG, "isFavorite == true")
+                                        listItem.add(category)
+                                    }
+                                }
+
+                                var urlImage = "https://placekitten.com/200/200"
+                                listItem.add(Data(51,urlImage, "sssd1", "5", null, isFavorite = true))
+                                listItem.add(Data(52,urlImage, "sssd2", "5", null, isFavorite = true))
+                                listItem.add(Data(53,urlImage, "sssd3", "5", null, isFavorite = true))
+
                             }else{
                                 listItem.clear()
-                                listItem.addAll(category)
-                                Log.d("categoryzz", "category size= ${category.size}")
+                                Log.d(TAG, "text == \"1\"")
+                                categorys.forEach { category ->
+                                    if (!category.isFavorite){
+                                        Log.d(TAG, "isFavorite == false")
+                                        listItem.add(category)
+                                    }
+                                }
+//                                listItem.addAll(categorys)
+                                Log.d("categoryzz", "category size= ${categorys.size}")
                                 //adapter.setMovies(category)
-
                             }
                             viewModel.adapter.replaceAll(listItem)
                         }

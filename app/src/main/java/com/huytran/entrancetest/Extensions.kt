@@ -26,12 +26,12 @@ fun Snackbar.action(action: String, color: Int? = null, listener: (View) -> Unit
   color?.let { setActionTextColor(color) }
 }
 
-@BindingAdapter("imageUrl")
-fun ImageView.setImageUrl(url: String?) {
-  Picasso.get().load(url).into(this)
-}
-
-@BindingAdapter("imageUrl")
-fun ImageView.setImageUrl(int: Int) {
-  this.setImageDrawable(resources.getDrawable(int,null))
-}
+//@BindingAdapter("imageUrl")
+//fun ImageView.setImageUrl(url: String?) {
+//  Picasso.get().load(url).into(this)
+//}
+//
+//@BindingAdapter("imageUrl")
+//fun ImageView.setImageUrl(int: Int) {
+//  this.setImageDrawable(resources.getDrawable(int,null))
+//}

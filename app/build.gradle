@@ -100,4 +100,8 @@ dependencies {
   implementation 'dev.ahamed.mva2:ext-databinding:2.0.0'  // DataBinding
   implementation 'dev.ahamed.mva2:ext-decorator:2.0.0'    // Decorators
   implementation 'dev.ahamed.mva2:ext-diffutil-rx:2.0.0'  // RxDiffUtil
+
+  // Glide dependency
+  implementation 'com.github.bumptech.glide:glide:4.8.0'
+  annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 }

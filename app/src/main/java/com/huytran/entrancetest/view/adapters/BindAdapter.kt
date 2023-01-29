@@ -9,6 +9,7 @@ import androidx.databinding.ObservableList
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.huytran.entrancetest.BR
+import com.huytran.entrancetest.data.model.Data
 
 open class BindAdapter<T>(
         private val layouts: Map<Int, Int>,
@@ -38,6 +39,7 @@ open class BindAdapter<T>(
         holder.bind.setVariable(BR.model, getItemByPosition(position))
         listener?.let { holder.bind.setVariable(BR.listener, it) }
         holder.bind.executePendingBindings()
+
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -68,14 +70,8 @@ open class BindAdapter<T>(
         notifyDataSetChanged()
     }
 
-    fun refresh() {
-        notifyDataSetChanged()
-    }
 
-    fun clear() {
-        items.clear()
-        notifyDataSetChanged()
-    }
+
 
     fun getItems(): ObservableList<T> = items
 }
