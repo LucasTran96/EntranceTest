@@ -30,7 +30,7 @@ class App : Application() {
     startKoin{
       androidLogger()
       androidContext(this@App)
-      modules(listOf(repositoryModule,ChildFragmentViewModelModule, retrofitModule, apiModule, databaseModule))
+      modules(listOf(repositoryModule,ChildFragmentViewModelModule, retrofitModule, apiModule))
     }
 
     INSTANCE = this

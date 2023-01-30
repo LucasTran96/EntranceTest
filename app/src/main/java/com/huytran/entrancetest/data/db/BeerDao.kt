@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.huytran.entrancetest.data.model.Beer
-import io.reactivex.Flowable
 import androidx.lifecycle.LiveData
 
 @Dao interface BeerDao {

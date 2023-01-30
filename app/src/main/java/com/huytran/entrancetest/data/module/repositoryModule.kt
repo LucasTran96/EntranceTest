@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 var repositoryModule = module{
     single {
-        UthusTestRepositoryImpl(get(), get()) as UthusTestRepository
+        UthusTestRepositoryImpl(get()) as UthusTestRepository
     }
 }

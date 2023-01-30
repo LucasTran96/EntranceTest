@@ -4,7 +4,7 @@
   <data>
     <variable
         name="model"
-        type="com.huytran.entrancetest.data.model.Beer"/>
+        type="com.huytran.entrancetest.data.model.Data"/>
     <variable
         name="listener"
         type="com.huytran.entrancetest.viewmodel.ChildFragmentViewModel"/>
@@ -139,7 +139,7 @@
             android:textColor="@color/black"
             app:fontFamily="@font/lato"
             android:inputType="text"
-            android:text='@{model.note, default=""}'
+            android:text="@{model.note}"
             />
 
       </com.google.android.material.textfield.TextInputLayout>
