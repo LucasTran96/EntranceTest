@@ -9,7 +9,6 @@ import androidx.databinding.ObservableList
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.huytran.entrancetest.BR
-import com.huytran.entrancetest.data.model.Data
 
 open class BindAdapter<T>(
         private val layouts: Map<Int, Int>,

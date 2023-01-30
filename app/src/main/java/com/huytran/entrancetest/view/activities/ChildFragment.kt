@@ -1,6 +1,5 @@
 package com.huytran.entrancetest.view.activities
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +12,7 @@ import androidx.lifecycle.Observer
 import com.huytran.entrancetest.BR
 import com.huytran.entrancetest.R
 import com.huytran.entrancetest.data.db.SessionManager
-import com.huytran.entrancetest.data.model.Data
+import com.huytran.entrancetest.data.model.Beer
 import com.huytran.entrancetest.databinding.FragmentChildBinding
 import com.huytran.entrancetest.viewmodel.ChildFragmentViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -24,12 +23,13 @@ class ChildFragment : Fragment() {
     private var text = ""
     private val TAG = "ChildFragment"
     private lateinit var sessionManager: SessionManager
-    private val listItem: MutableList<Data> = mutableListOf()
+    private val listItem: MutableList<Beer> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             text = it.getString(ARG_TEXT) ?: ""
         }
+        //activity?.let { viewModel.onCreate(it) }
         sessionManager = activity?.let { SessionManager(it) }!!
         getCategories()
         configureLiveDataObservers()
@@ -64,10 +64,10 @@ class ChildFragment : Fragment() {
             //getCategories()
             listItem.clear()
             var urlImage = "https://placekitten.com/200/200"
-            listItem.add(Data(5,urlImage, "sssd1", "5", null))
-            listItem.add(Data(5,urlImage, "sssd2", "5", null))
-            listItem.add(Data(5,urlImage, "sssd3", "5", null))
-            listItem.add(Data(5,urlImage, "sssd4", "5", null))
+            listItem.add(Beer(5,urlImage, "sssd1", "5", true))
+            listItem.add(Beer(5,urlImage, "sssd2", "5", true))
+            listItem.add(Beer(5,urlImage, "sssd3", "5", true))
+            listItem.add(Beer(5,urlImage, "sssd4", "5", true))
 
 //            listItem.add(ModelItem("9 Fragment", "9 Fragment\nBtnClick"))
 //            listItem.add(ModelItem("10 Fragment", "10 Fragments\nBtnClick"))
@@ -112,10 +112,29 @@ class ChildFragment : Fragment() {
                                     }
                                 }
 
+//                                activity?.let {
+//                                    activity-> viewModel.getAllBeerFromRoom().observe(activity,
+//                                        Observer { beers ->
+//                                            //listItem.clear()
+//                                            Log.d("ChildFragmentViewModel", "beers.size=${beers?.size}")
+//                                        if (beers != null){
+//
+//                                            listItem.addAll(beers)
+//                                            Log.d("ChildFragmentViewModel", "listItem.size=${listItem.size}")
+//                                            //viewModel.adapter.replaceAll(listItem)
+//                                        }else{
+//                                            showMessage()
+//                                        }
+//
+//                                    })
+//                                }
                                 var urlImage = "https://placekitten.com/200/200"
-                                listItem.add(Data(51,urlImage, "${Random.nextInt(20)}", "5", null, isFavorite = true))
-                                listItem.add(Data(52,urlImage, "sssd2", "5", null, isFavorite = true))
-                                listItem.add(Data(53,urlImage, "sssd3", "5", null, isFavorite = true))
+
+                                listItem.add(Beer(51,urlImage, "${Random.nextInt(20)}", "5",  isFavorite = true))
+                                listItem.add(Beer(52,urlImage, "sssd2", "5",  isFavorite = true))
+                                listItem.add(Beer(53,urlImage, "sssd3", "5",  isFavorite = true))
+                                viewModel.adapter.replaceAll(listItem)
+
 
                             }else{
                                 listItem.clear()
@@ -129,6 +148,7 @@ class ChildFragment : Fragment() {
 //                                listItem.addAll(categorys)
                                 Log.d("categoryzz", "category size= ${categorys.size}")
                                 //adapter.setMovies(category)
+
                             }
                             viewModel.adapter.replaceAll(listItem)
                         }
