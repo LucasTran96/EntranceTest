@@ -17,8 +17,8 @@ class TabViewModel(contract: MainActivityContract) : ViewModel() {
         contract.getFragmentManger(),
         listOf("Beer", "Favorite"),
         listOf(
-            ChildFragment.newInstance("1"),
-            ChildFragment.newInstance("2")
+            ChildFragment.newInstance(TAB1),
+            ChildFragment.newInstance(TAB2)
         )
     )
 
@@ -41,6 +41,11 @@ class TabViewModel(contract: MainActivityContract) : ViewModel() {
 
 
         }
+    }
+
+    companion object{
+        const val TAB1 = "1"
+        const val TAB2 = "2"
     }
 
 }

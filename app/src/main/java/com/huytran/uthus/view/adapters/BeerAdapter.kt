@@ -85,6 +85,8 @@ class BeerAdapter(
 
     open fun getItemByPosition(position: Int): Beer = dataList[position]
 
+    open fun getPositionByItem(beer: Beer): Int = dataList.indexOf(beer)
+
     override fun getItemCount(): Int {
         return dataList.size
     }

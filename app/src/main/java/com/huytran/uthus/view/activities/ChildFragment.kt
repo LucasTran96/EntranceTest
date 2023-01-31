@@ -1,5 +1,9 @@
 package com.huytran.uthus.view.activities
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,12 +15,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.huytran.uthus.BR
 import com.huytran.uthus.R
-import com.huytran.uthus.data.db.SessionManager
 import com.huytran.uthus.data.model.Beer
 import com.huytran.uthus.databinding.FragmentChildBinding
 import com.huytran.uthus.viewmodel.ChildFragmentViewModel
+import com.huytran.uthus.viewmodel.ChildFragmentViewModel.Companion.DELETE
+import com.huytran.uthus.viewmodel.ChildFragmentViewModel.Companion.SAVE
+import com.huytran.uthus.viewmodel.ChildFragmentViewModel.Companion.UPDATE
+import com.huytran.uthus.viewmodel.TabViewModel.Companion.TAB2
+import kotlinx.android.synthetic.main.fragment_child.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import kotlin.random.Random
 
 class ChildFragment : Fragment() {
     private val viewModel : ChildFragmentViewModel by viewModel()
@@ -29,7 +36,6 @@ class ChildFragment : Fragment() {
         arguments?.let {
             text = it.getString(ARG_TEXT) ?: ""
         }
-        //activity?.let { viewModel.onCreate(it) }
         getCategories()
         configureLiveDataObservers()
         isOnCreated = true
@@ -37,8 +43,13 @@ class ChildFragment : Fragment() {
 
     private fun configureLiveDataObservers() {
         viewModel.getButtonSaveLiveData().observe(this, Observer {
-            isSave -> isSave?.let {
-            Toast.makeText(activity, "${it.name}", Toast.LENGTH_LONG).show()
+            status -> status?.let {
+            when(status){
+                SAVE -> Toast.makeText(activity, "Save successful.", Toast.LENGTH_SHORT).show()
+                UPDATE -> Toast.makeText(activity, "Update successful.", Toast.LENGTH_SHORT).show()
+                DELETE -> Toast.makeText(activity, "Delete successful.", Toast.LENGTH_SHORT).show()
+            }
+            //Toast.makeText(activity, "${it.name}", Toast.LENGTH_LONG).show()
         }
         })
     }
@@ -48,15 +59,12 @@ class ChildFragment : Fragment() {
             DataBindingUtil.inflate<FragmentChildBinding>(inflater,
                 R.layout.fragment_child, container, false)
         binding.setVariable(BR.viewModel, viewModel)
-
-        //val listItem: MutableList<Category> = mutableListOf()
-        Log.d("ChildFragmentViewModel", "category size View= ${listItem.size}")
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("ChildFragmentViewModel", "onResume")
+        Log.d(TAG, "onResume")
         if (isOnCreated){
             getCategories()
         }
@@ -66,106 +74,131 @@ class ChildFragment : Fragment() {
      * getCategories is a fun handler that listens and updates new data from the View model.
      */
     private fun getCategories() {
-
-
-            showLoading()
-            activity?.let {
-                viewModel.getListCategories().observe(it,
-                    Observer { categorys ->
-                        hideLoading()
-                        if (categorys == null) {
-                            showMessage()
-                        } else {
-                            if (text == "2"){
-                                listItem.clear()
-                                Log.d(TAG, "text == \"2\"")
-
-                                activity?.let {
-                                    activity-> viewModel.getAllBeerFromRoom().observe(activity,
+        activity?.let {
+            if (isOnline(it)){
+                showLoading()
+                activity?.let {
+                    viewModel.getListCategories().observe(it,
+                        Observer { categorys ->
+                            hideLoading()
+                            if (categorys == null) {
+                                showMessage()
+                            } else {
+                                if (text == TAB2){
+                                    activity?.let {
+                                            activity-> viewModel.getAllBeerFromRoom().observe(activity,
+                                        Observer { beers ->
+                                            Log.d(TAG, "beers.size=${beers?.size}")
+                                            if (beers != null){
+                                                listItem.clear()
+                                                beers.forEach{ beer ->
+                                                    beer.isFavorite = true
+                                                }
+                                                listItem.addAll(beers)
+                                                viewModel.adapter.replaceAll(listItem)
+                                            }else{
+                                                showMessage()
+                                            }
+                                        })
+                                    }
+                                }else{
+                                    activity?.let {
+                                            activity-> viewModel.getAllBeerFromRoom().observe(activity,
                                         Observer { beers ->
                                             //listItem.clear()
-                                            Log.d("ChildFragmentViewModel", "beers.size=${beers?.size}")
-                                        if (beers != null){
-                                            listItem.clear()
-                                            if (beers.isNotEmpty()){
-                                                Log.d("ChildFragmentViewModel", "model.isFavorite = ${beers[0].isFavorite}")
-                                            }
-
-                                            beers.forEach{ beer ->
-                                                beer.isFavorite = true
-                                            }
-
-                                            listItem.addAll(beers)
-                                            viewModel.adapter.replaceAll(listItem)
-                                            Log.d("ChildFragmentViewModel", "listItem.size=${listItem.size}")
-                                            //viewModel.adapter.replaceAll(listItem)
-                                        }else{
-                                            showMessage()
-                                        }
-
-                                    })
-                                }
-                            }else{
-                                listItem.clear()
-                                activity?.let {
-                                        activity-> viewModel.getAllBeerFromRoom().observe(activity,
-                                    Observer { beers ->
-                                        //listItem.clear()
-                                        Log.d("ChildFragmentViewModel", "beers.size=${beers?.size}")
-                                        if (beers != null){
-                                            beers.forEach{ beer->
-                                                categorys.forEach{ category->
-                                                    if (category.id == beer.id){
-                                                        category.isSave = true
+                                            Log.d(TAG, "beers.size=${beers?.size}")
+                                            if (beers?.size!! > 0){
+                                                listItem.clear()
+                                                beers.forEach{ beer->
+                                                    categorys.forEach{ category->
+                                                        if (category.id == beer.id){
+                                                            category.isSave = true
+                                                            category.note = beer.note
+                                                        }
                                                     }
                                                 }
+                                                Log.d(TAG, "text == \"1\"")
+                                                listItem.addAll(categorys)
+                                                viewModel.adapter.replaceAll(listItem)
                                             }
-                                        }else{
-                                            showMessage()
-                                        }
-                                    })
+                                            else{
+                                                //showMessage()
+                                                listItem.clear()
+                                                listItem.addAll(categorys)
+                                                viewModel.adapter.replaceAll(listItem)
+                                            }
+                                        })
+                                    }
                                 }
+                            }
+                        })
+                }
+            }else{
+                hideLoading()
 
-                                Log.d(TAG, "text == \"1\"")
-                                listItem.addAll(categorys)
-                                Log.d("categoryzz", "category size= ${categorys.size}")
-                                //adapter.setMovies(category)
+                if (text == TAB2){
+                    Log.d(TAG, "text == \"2\"")
+
+                    activity?.let {
+                            activity-> viewModel.getAllBeerFromRoom().observe(activity,
+                        Observer { beers ->
+                            Log.d(TAG, "beers.size=${beers?.size}")
+                            if (beers != null){
+                                listItem.clear()
+                                beers.forEach{ beer ->
+                                    beer.isFavorite = true
+                                }
+                                listItem.addAll(beers)
                                 viewModel.adapter.replaceAll(listItem)
-
+                            }else{
+                                showMessage()
                             }
 
-                        }
-                    })
+                        })
+                    }
+                }
+                Toast.makeText(activity, "No Internet.", Toast.LENGTH_SHORT).show()
             }
+        }
 
 
+    }
+
+
+    fun isOnline(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val n = cm.activeNetwork
+            if (n != null) {
+                val nc = cm.getNetworkCapabilities(n)
+                //It will check for both wifi and cellular network
+                return nc!!.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+            }
+            return false
+        } else {
+            val netInfo = cm.activeNetworkInfo
+            return netInfo != null && netInfo.isConnectedOrConnecting
+        }
     }
 
     /**
      * showMessage is a fun used to display the error returned when querying the api from the server.
      */
     private fun showMessage() {
-//        categoryLayout.snack(getString(R.string.network_error), Snackbar.LENGTH_INDEFINITE) {
-//            action(getString(R.string.ok)) {
-//                getCategories()
-//            }
-//        }
     }
 
     // show loading
     private fun showLoading() {
-//        categoryProgressBar.visibility = View.VISIBLE
-//        categoryRecyclerView.isEnabled = false
+        prLoadingBeer?.visibility = View.VISIBLE
+        rclBeer?.isEnabled = false
     }
 
     // hide loading
     private fun hideLoading() {
-//        categoryProgressBar.visibility = View.GONE
-//        categoryRecyclerView.isEnabled = true
+        prLoadingBeer?.visibility = View.GONE
+        rclBeer?.isEnabled = true
     }
-
-
-    //private fun createVm() = ChildFragmentViewModel()
 
     companion object {
         private const val ARG_TEXT = "fragmentTAG"

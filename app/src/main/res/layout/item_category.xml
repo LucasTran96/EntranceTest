@@ -76,7 +76,7 @@
           buttonSaveVisibility="@{model.favorite}"
           android:background="@drawable/custom_background_color"
           android:textColor="@color/white"
-          android:onClick="@{()->listener.btnSaveOrDeleteEvent(model)}"
+          android:onClick="@{()->listener.btnSaveEvent(model)}"
           />
 <!--      android:onClick="@{()->listener.btnSaveOrDeleteEvent(model)}"-->
 

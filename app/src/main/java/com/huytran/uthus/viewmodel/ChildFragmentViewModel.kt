@@ -16,20 +16,22 @@ import com.huytran.uthus.view.adapters.BeerAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.io.*
 
 class ChildFragmentViewModel(private val repository: UthusTestRepository): ViewModel()   {
 
 
     // saveLiveData is MutableLiveData as Boolean type it will notify every time there is a change in value.
-    private var saveLiveData = MutableLiveData<Beer>()
-//    lateinit var database: BeerDatabase
-//    private lateinit var beerDao: BeerDao
+    private var saveLiveData = MutableLiveData<Int>()
+
+
 
      var isButtonSave = ObservableField<String>("")
 
     // getSaveLiveData is a fun event that fires an event on which view Observer it when the saveLiveData data is changed.
-    fun getButtonSaveLiveData(): LiveData<Beer> = saveLiveData
+    fun getButtonSaveLiveData(): LiveData<Int> = saveLiveData
 
     val adapter = BeerAdapter(
     id= R.layout.item_category,
@@ -37,44 +39,43 @@ class ChildFragmentViewModel(private val repository: UthusTestRepository): ViewM
     listener = this
     )
 
-//    fun onCreate(context: Context) {
-//        database = Room.databaseBuilder(context, BeerDatabase::class.java, "beer-db").build()
-//        beerDao = database.beerDao()
-//    }
+    // Insert beer model to SQLite
+    fun btnSaveEvent(model: Beer) {
 
-    fun btnSaveOrDeleteEvent(model: Beer) {
-
-       // model.isFavorite = !model.isFavorite
-        Log.d("ChildFragmentViewModel", "isButtonSave=${isButtonSave.get()}")
         model.isSave = true
         adapter.refresh()
         CoroutineScope(Dispatchers.IO).launch {
             repository.insertBeer(beer = model)
-            Log.d("ChildFragmentViewModel", "model.isFavorite = ${model.isFavorite}")
-            saveLiveData.postValue(model)
+            saveLiveData.postValue(SAVE)
         }
+
     }
 
+    // get all list beer from Room Database
     fun getAllBeerFromRoom() = repository.getAllBeerFromRoom()
 
+    // Update beer model to SQLite
     fun btnUpdateEvent(model: Beer) {
         Log.d("ChildFragmentViewModel", model.name)
         CoroutineScope(Dispatchers.IO).launch {
             repository.updateBeer(beer = model)
         }
-        saveLiveData.postValue(model)
+        saveLiveData.postValue(UPDATE)
     }
 
+    // Delete beer model to SQLite
     fun btnDeleteEvent(model: Beer) {
         Log.d("ChildFragmentViewModel", model.name)
         CoroutineScope(Dispatchers.IO).launch {
             repository.deleteBeer(beer = model)
         }
-        saveLiveData.postValue(model)
+        saveLiveData.postValue(DELETE)
     }
 
     companion object{
-
+        const val DELETE = 2
+        const val UPDATE = 0
+        const val SAVE = 1
         @BindingAdapter("urlImage")
         @JvmStatic
         fun setImageBeer(imageView : AppCompatImageView, url:String){
