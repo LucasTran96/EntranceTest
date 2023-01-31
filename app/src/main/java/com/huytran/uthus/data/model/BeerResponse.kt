@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class BeerResponse(
     @SerializedName("data")
     @Expose
-    val data: List<Data>?,
+    val data: List<Beer>?,
     @SerializedName("loadMore")
     @Expose
     val loadMore: Boolean?,
@@ -21,29 +21,35 @@ data class BeerResponse(
     val total: Int?
 )
 
-data class Data(
-    @SerializedName("id")
-    @Expose
-    val id: Int?,
-    @SerializedName("image")
-    @Expose
-    val image: String?,
-    @SerializedName("name")
-    @Expose
-    val name: String?,
-    @SerializedName("price")
-    @Expose
-    val price: String?,
-    @SerializedName("rating")
-    @Expose
-    val rating: Rating?,
-    @SerializedName("isFavorite")
-    @Expose
-    var isFavorite: Boolean = false,
-    @SerializedName("note")
-    @Expose
-    var note: String = ""
-)
+//@Entity(tableName = "Beer")
+//data class Data(
+//    @SerializedName("id")
+//    @Expose
+//    @ColumnInfo(name = "id")
+//    val id: Int?,
+//    @SerializedName("image")
+//    @Expose
+//    @ColumnInfo(name = "image")
+//    val image: String?,
+//    @SerializedName("name")
+//    @Expose
+//    @ColumnInfo(name = "name")
+//    val name: String?,
+//    @SerializedName("price")
+//    @Expose
+//    @ColumnInfo(name = "price")
+//    val price: String?,
+//    @SerializedName("rating")
+//    @Expose
+//    val rating: Rating?,
+//    @SerializedName("isFavorite")
+//    @Expose
+//    @ColumnInfo(name = "isFavorite")
+//    var isFavorite: Boolean = false,
+//    @SerializedName("note")
+//    @Expose
+//    var note: String = ""
+//)
 
 data class Rating(
     @SerializedName("average")
