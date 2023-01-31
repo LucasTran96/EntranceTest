@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.huytran.entrancetest">
+  package="com.huytran.uthus">
   <uses-permission android:name="android.permission.INTERNET"/>
   <application
-    android:name="com.huytran.entrancetest.App"
+    android:name="com.huytran.uthus.App"
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
@@ -11,8 +11,8 @@
     android:supportsRtl="true"
 	android:usesCleartextTraffic="true"
     android:theme="@style/AppTheme">
-    <activity android:name="com.huytran.entrancetest.view.activities.TabActivity"
-      android:label="WeWatch"
+    <activity android:name="com.huytran.uthus.view.activities.TabActivity"
+      android:label="Uthus Interview"
       android:screenOrientation="portrait"
       android:exported="true">
       <intent-filter>

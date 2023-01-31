@@ -5,7 +5,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.huytran.entrancetest.viewmodel.TabViewModel" />
+                type="com.huytran.uthus.viewmodel.TabViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,10 +4,10 @@
   <data>
     <variable
         name="model"
-        type="com.huytran.entrancetest.data.model.Beer"/>
+        type="com.huytran.uthus.data.model.Beer"/>
     <variable
         name="listener"
-        type="com.huytran.entrancetest.viewmodel.ChildFragmentViewModel"/>
+        type="com.huytran.uthus.viewmodel.ChildFragmentViewModel"/>
   </data>
 
   <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,7 +41,7 @@
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toTopOf="@+id/edtNotice"
           urlImage="@{model.image.toString()}"
-          tools:src="@drawable/img_category_person"
+          tools:src="@drawable/empty_pictures"
           />
 <!--     app:srcCompat="@drawable/img_category_person"-->
 
@@ -72,7 +72,8 @@
           android:layout_marginEnd="10dp"
           app:layout_constraintEnd_toStartOf="@+id/btnUpdate"
           app:layout_constraintTop_toTopOf="@+id/txtCategoryName"
-          android:text='@{model.favorite? @string/delete : @string/save, default=@string/save}'
+          android:text="@string/save"
+          buttonSaveVisibility="@{model.favorite}"
           android:background="@drawable/custom_background_color"
           android:textColor="@color/white"
           android:onClick="@{()->listener.btnSaveOrDeleteEvent(model)}"
@@ -82,7 +83,22 @@
       <androidx.appcompat.widget.AppCompatButton
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:id="@+id/btnDelete"
+          app:layout_constraintStart_toStartOf="@+id/btnSave"
+          app:layout_constraintEnd_toEndOf="@+id/btnSave"
+          app:layout_constraintTop_toTopOf="@+id/txtCategoryName"
+          android:text="@string/delete"
+          buttonVisibility="@{model.favorite}"
+          android:background="@drawable/custom_background_color"
+          android:textColor="@color/white"
+          android:onClick="@{()->listener.btnDeleteEvent(model)}"
+          />
+
+      <androidx.appcompat.widget.AppCompatButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
           android:id="@+id/btnUpdate"
+          app:layout_constraintStart_toEndOf="@+id/btnDelete"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="@+id/txtCategoryName"
           android:text="@string/update"

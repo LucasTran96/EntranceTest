@@ -6,7 +6,7 @@
 
         <variable
                 name="viewModel"
-                type="com.huytran.entrancetest.viewmodel.ChildFragmentViewModel"/>
+                type="com.huytran.uthus.viewmodel.ChildFragmentViewModel"/>
     </data>
 
     <LinearLayout
